@@ -145,18 +145,18 @@ file(GLOB  LDLIDAR_DRI_SERIAL ${CMAKE_CURRENT_SOURCE_DIR}/ldlidar_driver/src/ser
 file(GLOB  MAIN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/publish_node/*.cpp)
 file(GLOB  LISTEN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/listen_node/*.cpp)
 
-add_executable(${PROJECT_NAME}_node  
-  ${MAIN_SRC} 
-  ${LDLIDAR_DRI_CORE} 
-  ${LDLIDAR_DRI_DATARPC} 
-  ${LDLIDAR_DRI_FILTER} 
-  ${LDLIDAR_DRI_LOGGER} 
-  ${LDLIDAR_DRI_NETWORK} 
+add_executable(${PROJECT_NAME}_node
+  ${MAIN_SRC}
+  ${LDLIDAR_DRI_CORE}
+  ${LDLIDAR_DRI_DATARPC}
+  ${LDLIDAR_DRI_FILTER}
+  ${LDLIDAR_DRI_LOGGER}
+  ${LDLIDAR_DRI_NETWORK}
   ${LDLIDAR_DRI_SERIAL}
 )
 target_link_libraries(${PROJECT_NAME}_node pthread ${catkin_LIBRARIES})
 
-add_executable(${PROJECT_NAME}_listen_node  
+add_executable(${PROJECT_NAME}_listen_node
   ${LISTEN_SRC}
 )
 target_link_libraries(${PROJECT_NAME}_listen_node  ${catkin_LIBRARIES})
@@ -238,6 +238,12 @@ install(TARGETS ${PROJECT_NAME}_node ${PROJECT_NAME}_listen_node
 install(DIRECTORY launch rules rviz
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+
+install(DIRECTORY config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
+  FILES_MATCHING PATTERN "*.yaml"
+)
+
 
 #############
 ## Testing ##

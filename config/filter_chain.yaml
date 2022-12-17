@@ -1,0 +1,16 @@
+scan_filter_chain:
+- name: scan_filter_0
+  type: laser_filters/LaserScanSectorFilter
+  params:
+    angle_min: 0.0
+    angle_max: 0.3
+    clear_inside: true
+    invert: false
+
+- name: scan_filter_1
+  type: laser_filters/LaserScanSectorFilter
+  params:
+    angle_min: 0.9
+    angle_max: -0.12
+    clear_inside: true
+    invert: false
