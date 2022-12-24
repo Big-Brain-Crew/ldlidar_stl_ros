@@ -5,13 +5,13 @@
     <arg name="port_name" default="/dev/ttyUSB0" />
     <arg name="port_baudrate" default="230400" />
     <arg name="fix_to_base_link" default="true" />
-    <arg name="robot_name" default="" />
+    <arg name="robot_name" />
 
     <!-- ldldiar message publisher node -->
     <node name="LD06" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_node" output="screen">
         <param name="product_name" value="LDLiDAR_LD06" />
         <param name="topic_name" value="$(arg topic_name)" />
-        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="frame_id" value="$(arg robot_name)/$(arg frame_id)" />
         <param name="port_name" value="$(arg port_name)" />
         <param name="port_baudrate" value="$(arg port_baudrate)" />
         <!-- Set laser scan directon: -->
@@ -29,7 +29,7 @@
         <param name="enable_angle_crop_func" type="bool" value="false" />
         <!--    2. Angle cropping interval setting, The distance and intensity data within the set
         angle range will be set to 0 -->
-        <!--       angle >= "angle_crop_min" and angle <= "angle_crop_max", unit is degress -->
+        <!--       angle >= "angle_crop_min" and angle <= "angle_crop_max", unit is degrees -->
         <param name="angle_crop_min" type="double" value="135.0" />
         <param name="angle_crop_max" type="double" value="225.0" />
     </node>
@@ -45,6 +45,7 @@
         if="$(arg fix_to_base_link)" />
 
     <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen" name="laser_filter">
-        <rosparam command="load" file="$(find ldlidar_stl_ros)/config/filter_chain.yaml" />
+        <rosparam command="load" file="$(find ldlidar_stl_ros)/config/filter_chain.yaml"
+            subst_value="true" />
     </node>
 </launch>
