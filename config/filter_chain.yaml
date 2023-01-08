@@ -1,11 +1,17 @@
 scan_filter_chain:
-  - name: scan_filter_0
+  - name: range
+    type: laser_filters/LaserScanRangeFilter
+    params:
+      use_message_range_limits: false
+      lower_threshold: 0.04
+      upper_threshold: 1.0
+  - name: scan_filter_1
     type: laser_filters/LaserScanBoxFilter
     params:
       box_frame: "$(arg robot_name)/base_link"
-      min_x: -0.07
-      max_x: 0.07
-      min_y: -0.07
-      max_y: 0.07
+      min_x: -0.09
+      max_x: 0.09
+      min_y: -0.09
+      max_y: 0.09
       min_z: -1.0
       max_z: 1.0
